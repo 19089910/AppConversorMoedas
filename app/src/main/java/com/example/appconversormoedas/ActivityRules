@@ -1,0 +1,114 @@
+GERENCIAMENTO DE PROJETO
+
+>manifest: descreve a aplicacao, tanto o que ela faz quanto o que ela usa(acessos),
+alem de registrar as activity e suas telas.
+EX:acesso a memoria do celular acesso a localizacao do celular, acesso a wifi... e
+
+>activity_main.xml e MainActivity.java sao partes visuais sendo parte Layout e parte logica consequentimente,
+a que faz a interacao com o usuario.
+
+>res(recursos)
+    >drowable: incon, img, audios
+    >layout: .xml para layout
+    >mipmap: incone antes de abir
+    >values
+        >coles: centraliza estilizacao de cores para serem mudadas posterioramente
+        >strings: centraliza estilizacao de fontes para serem mudadas posterioramente
+        >temes: centraliza estilizacao de temas para serem mudadas posterioramente
+
+>gradle:gerenciador de dependencias(biblioteca, versao de app,)
+----------------------------------------------------------------------------------------------------
+ViewHolder:(CONCEITO DE POO)
+
+UMA CALSSE PRIVADA E ESTATICA QUE CONTEM TODOS OS ELEMENTOS DE INTERFACE PARA SEREM INSTANCIADOS SO
+UMA VEZ PELO ONCRIATE.
+CLASSE VIEW HOLDER:
+>   private static class ViewHolder {//percorre 1 vez e capitura todos os metodos na sua propia classe
+        EditText editText;
+        TextView textDolar;
+        TextView textEuro;
+        Button buttonCalculete;
+    }
+OBS: OBSERVE QUE ELE E SO TIPOS ATRIBUIDO A UM NOME. ONDE O NOME SERA O QUE IRA CAPITURAR OS METODOS
+SUA INTACIA ONDE O 'm' E UM PADRAO PARA O PROGRAMADOR CHAR MAIS RAPIDO SUAS CRIACOES:
+> private ViewHolder mViewHolder = new ViewHolder();
+
+ONDE O NOME SERA O QUE IRA CAPITURAR TODOS OS METODOS:
+> this.mViewHolder.editText = findViewById(R.id.edit_value);
+  this.mViewHolder.textDolar = findViewById(R.id.text_dolar);
+  this.mViewHolder.textEuro = findViewById(R.id.text_euro);
+  this.mViewHolder.buttonCalculete = findViewById(R.id.botton_calculete);
+  <diretorio> = BuscarPorId(diretorio);
+OBS:O PADRAO CONSISTE EM ATRIBUIR SO UMA VEZ TODOS OS METODOS SO UMA VEZ PARA SEREM CHAMADOS POSTERIOMENTE
+EX:
+> private void test(){
+       this.mViewHolder.textEuro.setText("100");
+   }
+OBS:SEM O VIEW HOLDER OS METODOS DE INTERFACE FICARIAM DESCENTRALIZADOS OBRIGANDO TODA CAPITURACAO
+DE METODOS SEJAM EM TEMPO DE EXECULCAO PERCORRENDO PAELO LEYOUT TODA VEZ QUE INSTANCIAR UM METODO
+EX:
+>  EditText valor = findViewById(R.id.edit_value);//percorre por toda activity_main.xml buscando edit_valuevarias vezes.
+   valor.getText();
+   TextView valor1 = findViewById(R.id.text_dolar);
+   valor1.getText();
+----------------------------------------------------------------------------------------------------
+TIPO DE ONCLICKES
+
+1:layour>classe
+Consiste em atribuir uma teg<onClick> no layout dando um nome. assim na pesquisa, uma classe recebe
+o clice e faz a logica.
+
+    layout:
+     <Button
+         android:id="@+id/botton_calculete"
+         android:onClick="text"/>
+
+     classe:
+     public void text(View view) {
+         //codigo se clicar
+     }
+OBS:sua desvantagem se da por sua falta de centralizacao de seu conteudo desejado, tendo varias classes
+para varios clicks... alem de dificil compreencao para saber qual button chamou essa classe tendo consutas
+desgastantes por todos o codigo do leyout.
+
+2:esculta>oncatere
+consiste em utilizar viewHolder como diretorio.setOnClickListener("esculta" o click)
+setando a funcao(View.OnClickListener()) listerner que esculta ser chamado, disparando o codigo tudo
+dentro de onCriete, tendo sua chamada, logica e metodo"interface".
+
+     onCriete:
+     this.mViewHolder.buttonCalculete.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             //codigo se clicar
+         }
+     });
+
+OBS: seu ponto franco e contendo muita informacao em seu interior e sem delegacao de atividades,
+o que deixa ser muito extencivo e grande com varios clicks dentro dele.
+
+3:main(esculta>classe)
+o mesmo que o segundo, porem em vez de criar um metodo "interface" que utiliza a funcao utilizaremos
+o main para implementar a funcao View.OnClickListener assim qualquer classe pode ser um onClick para
+abrigar a logica do click de forma delegativa, assim deixando no onCrieate so a responsabilidade de
+chama-la.
+
+main:
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    classe:
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.botton_calculete) {
+            //Logica
+        }
+        if(v.getId() == R.id.edit_value) {
+            //Logica
+        }
+    }
+    onCrieate:
+    this.mViewHolder.buttonCalculete.setOnClickListener(this);
+    this.mViewHolder.editText.setOnClickListener(this);
+}
+OBS:para cada id chamada precisa fazer uma verificacao se e o id desejado para sua logica, assim um
+IF.
