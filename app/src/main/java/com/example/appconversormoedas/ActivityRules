@@ -18,6 +18,17 @@ a que faz a interacao com o usuario.
 
 >gradle:gerenciador de dependencias(biblioteca, versao de app,)
 ----------------------------------------------------------------------------------------------------
+Extrair recursos String//centraliza estilizacao de String para serem mudadas posterioramente
+
+Alt + Enter + Extract string resource = nome_da_variavel_sem_espaco
+resp: android:text="@string/nome_da_variavel_sem_espaco" />
+//no res:
+<resources>
+    <string name="nome_da_variavel_sem_espaco">exemplo do que escrever</string>
+</resources>
+
+obs:note centraliza no resources o que sera escrito, precisando so modificar nele
+----------------------------------------------------------------------------------------------------
 ViewHolder:(CONCEITO DE POO)
 
 UMA CALSSE PRIVADA E ESTATICA QUE CONTEM TODOS OS ELEMENTOS DE INTERFACE PARA SEREM INSTANCIADOS SO
@@ -112,3 +123,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 OBS:para cada id chamada precisa fazer uma verificacao se e o id desejado para sua logica, assim um
 IF.
+----------------------------------------------------------------------------------------------------
+notificacao Toast
+
+.makeText().show()//caixa_de_texto.funcoa_mostrar:
+         (context: ,String: ,tempo_de_tela:)
+         >context: //conteixto represenda dados de uma activity, contexto por traz da classe para o
+            android funcionar Ex:this(main), ou qual quer classe com contexto.
+         >String: //texto que ira aparecer... contudo mais inteligente colocar uma marca no res.String
+            para ser modificado posteriormente...Ex: this.getString(R.string.informe_valor)//diretorio
+         >tempo_de_tela: //podendo ser Toast.LENGTH_SHORT(3seg), ou Toast.LENGTH_LONG(10seg)
