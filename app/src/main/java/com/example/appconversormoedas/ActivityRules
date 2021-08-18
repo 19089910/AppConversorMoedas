@@ -133,3 +133,17 @@ notificacao Toast
          >String: //texto que ira aparecer... contudo mais inteligente colocar uma marca no res.String
             para ser modificado posteriormente...Ex: this.getString(R.string.informe_valor)//diretorio
          >tempo_de_tela: //podendo ser Toast.LENGTH_SHORT(3seg), ou Toast.LENGTH_LONG(10seg)
+----------------------------------------------------------------------------------------------------
+Activity_main
+
+textSize: tamanho de texto
+textAlignment: aliamento de texto
+inputType: tipo de teclado; Ex: numberSigned: teclado numerico
+
+gravity: Alinhamento dentro do elemento
+layout_gravity: Alinhamento do elemento com relação ao pai
+LinearLayout: Orientações
+    Organiza os elementos de forma linear Horizontal ou vertical
+    layout_weight: Divisão em partes por elementos
+
+
